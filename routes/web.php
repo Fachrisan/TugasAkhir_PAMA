@@ -118,12 +118,17 @@ Route::get('/register', [RegisterBasic::class, 'index'])->name('register');
 Route::post('/proses-reg', [RegisterBasic::class, 'reg'])->name('proses-reg');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::middleware(['auth', 'checklevel:admin'])->group(function () {
+Route::middleware(['auth', 'checklevel:admin,mahasiswa'])->group(function () {
   //dashboard
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
 
   //datauser
   Route::get('/datauser', [DataUserController::class, 'index'])->name('datauser.index');
+  Route::get('/user', [LoginController::class, 'user'])->name('user.index');
+  Route::post('/user-store', [LoginController::class, 'store'])->name('user.store');
+  Route::get('/user/{id_user}/edit', [LoginController::class, 'edit'])->name('user.edit');
+  Route::put('/user/{id_user}', [LoginController::class, 'update'])->name('user.update');
+  Route::delete('/user/{id_user}', [LoginController::class, 'destroy'])->name('user.destroy');
 
   //dosen
   Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');

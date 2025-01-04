@@ -1,177 +1,174 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tables - Data User')
+@section('title', 'Daftar Pengguna')
 
 @section('content')
 <h4 class="py-3 mb-4">
-  <span class="text-muted fw-light">Tables /</span> Data User Tables
+  <span class="text-muted fw-light">Data Pengguna</span>
 </h4>
 
-<!-- Button Tambah User -->
-<button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addUserModal">
-  Tambah User
+@if(session('success'))
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ session('success') }}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+@endif
+
+<!-- Modal Tambah -->
+<div class="modal fade" id="tambahModal" tabindex="-1" aria-labelledby="tambahModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form action="{{ route('user.store') }}" method="POST">
+        @csrf
+        <div class="modal-header">
+          <h5 class="modal-title" id="tambahModalLabel">Tambah User</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <div class="mb-3">
+            <label>username</label>
+            <input type="username" name="username" class="form-control @error('username') is-invalid @enderror" value="{{ old('username') }}">
+            @error('username')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label>Password</label>
+            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+            @error('password')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        <div class="mb-3">
+            <label>Level</label>
+            <select name="level" class="form-control @error('level') is-invalid @enderror">
+                <option value="admin" {{ old('level') == 'admin' ? 'selected' : '' }}>Admin</option>
+                <option value="dosen" {{ old('level') == 'dosen' ? 'selected' : '' }}>dosen</option>
+                <option value="mahasiswa" {{ old('level') == 'mahasiswa' ? 'selected' : '' }}>mahasiswa</option>
+            </select>
+            @error('level')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
+        </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+          <button type="submit" class="btn btn-primary">Tambah Pengguna</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Tombol untuk memunculkan modal tambah -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahModal">
+  Tambah Pengguna
 </button>
-
 <!-- Input Pencarian -->
-<input type="text" id="searchInput" class="form-control mb-3" placeholder="Cari User..." onkeyup="searchTable()">
+<div class="mb-3 mt-3">
+  <input type="text" id="searchInput" class="form-control" placeholder="Cari pengguna...">
+</div>
+<div class="card mt-3">
+  <div class="card">
+    <h5 class="card-header">Tabel Data User</h5>
+    <div class="card-body">
+      <div class="table-responsive text-nowrap">
+        <table class="table table-bordered" id="userTable">
+          <thead>
+        <tr>
+          <th>username</th>
+          <th>password</th>
+          <th>Level</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody>
+        @foreach($users as $key => $user)
+        <tr>
+            <td>{{ $user->username }}</td>
+            <td>{{ $user->password }}</td>
+            <td>{{ $user->level }}</td>
+            <td>
+            <div class="dropdown">
+              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+              <div class="dropdown-menu">
+                <!-- Modal Edit -->
+                <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $user->id_user }}">
+                  <i class="bx bx-edit-alt me-1"></i> Edit
+                </a>
 
+                <!-- Form Delete -->
+                <form action="{{ route('user.destroy', $user->id_user) }}" method="POST" style="display:inline;">
+                  @csrf
+                  @method('DELETE')
+                  <button type="submit" class="dropdown-item" onclick="return confirm('Apakah Anda yakin ingin menghapus Pengguna ini?');">
+                    <i class="bx bx-trash me-1"></i> Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </td>
+        </tr>
 
-<!-- Bordered Table -->
-<div class="card">
-  <h5 class="card-header">Tabel Data User</h5>
-  <div class="card-body">
-    <div class="table-responsive text-nowrap">
-      <table class="table table-bordered" id="userTable">
-        <thead>
-          <tr>
-            <th>Nim/Nidn</th>
-            <th>Password</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>admin</td>
-            <td>admin</td>
-            <td><span class="badge bg-label-success me-1">Admin</span></td>
-            <td>
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item edit-user" href="#" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nim="admin" data-role="Admin"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                  <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i> Delete</a>
+        <!-- Modal Edit -->
+        <div class="modal fade" id="editModal{{ $user->id_user }}" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form action="{{ route('user.update', $user->id_user) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <div class="modal-header">
+                  <h5 class="modal-title" id="editModalLabel">Edit User</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>012022001</td>
-            <td>-----</td>
-            <td><span class="badge bg-label-info me-1">Dosen</span></td>
-            <td>
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item edit-user" href="#" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nim="012022001" data-role="Dosen"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                  <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i> Delete</a>
+                <div class="modal-body">
+                  <div class="mb-3">
+                    <label for="username{{ $user->id_user }}" class="form-label">username</label>
+                    <input type="username" name="username" class="form-control" id="username{{ $user->id_user }}" value="{{ $user->username }}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="password{{ $user->id_user }}" class="form-label">password</label>
+                    <input type="text" name="password" class="form-control" id="password{{ $user->id_user }}" value="{{ $user->password }}" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="level{{ $user->id_user }}" class="form-label">level</label>
+                    <select name="level" class="form-select" id="level{{ $user->id_user }}" required>
+                      <option value="admin" {{ $user->level == 'admin' ? 'selected' : '' }}>admin</option>
+                      <option value="dosen" {{ $user->level == 'kasir' ? 'selected' : '' }}>dosen</option>
+                      <option value="mahasiswa" {{ $user->level == 'kasir' ? 'selected' : '' }}>mahasiswa</option>
+                    </select>
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-          <tr>
-            <td>152023111</td>
-            <td>----</td>
-            <td><span class="badge bg-label-primary me-1">Mahasiswa</span></td>
-            <td>
-              <div class="dropdown">
-                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
-                <div class="dropdown-menu">
-                  <a class="dropdown-item edit-user" href="#" data-bs-toggle="modal" data-bs-target="#editUserModal" data-nim="152023111" data-role="Mahasiswa"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                  <a class="dropdown-item" href="#"><i class="bx bx-trash me-1"></i> Delete</a>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                  <button type="submit" class="btn btn-primary">Simpan Perubahan</button>
                 </div>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        @endforeach
+      </tbody>
+    </table>
   </div>
 </div>
-<!--/ Bordered Table -->
-
-<!-- Modal Tambah User -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addUserModalLabel">Tambah User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="nim" class="form-label">Nim/Nidn</label>
-            <input type="text" class="form-control" id="nim" required>
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" required>
-          </div>
-          <div class="mb-3">
-            <label for="role" class="form-label">Role</label>
-            <select class="form-control" id="role">
-              <option value="Admin">Admin</option>
-              <option value="Dosen">Dosen</option>
-              <option value="Mahasiswa">Mahasiswa</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Simpan</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Modal Edit User -->
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="edit-nim" class="form-label">Nim/Nidn</label>
-            <input type="text" class="form-control" id="edit-nim" readonly>
-          </div>
-          <div class="mb-3">
-            <label for="edit-role" class="form-label">Role</label>
-            <select class="form-control" id="edit-role">
-              <option value="Admin">Admin</option>
-              <option value="Dosen">Dosen</option>
-              <option value="Mahasiswa">Mahasiswa</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary">Update</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Script untuk mengisi modal edit dengan data yang dipilih -->
 <script>
-  document.addEventListener("DOMContentLoaded", function() {
-    let editUserButtons = document.querySelectorAll(".edit-user");
-    editUserButtons.forEach(button => {
-      button.addEventListener("click", function() {
-        let nim = this.getAttribute("data-nim");
-        let role = this.getAttribute("data-role");
-        document.getElementById("edit-nim").value = nim;
-        document.getElementById("edit-role").value = role;
-      });
+  document.getElementById("searchInput").addEventListener("keyup", function() {
+    let filter = this.value.toLowerCase();
+    let rows = document.querySelectorAll("#userTable tbody tr");
+
+    rows.forEach(row => {
+      let username = row.cells[0].textContent.toLowerCase();
+      let level = row.cells[2].textContent.toLowerCase();
+      if (username.includes(filter) || level.includes(filter)) {
+        row.style.display = "";
+      } else {
+        row.style.display = "none";
+      }
     });
   });
-
-  function searchTable() {
-    let input = document.getElementById("searchInput");
-    let filter = input.value.toLowerCase();
-    let table = document.getElementById("userTable");
-    let tr = table.getElementsByTagName("tr");
-
-    for (let i = 1; i < tr.length; i++) {
-      let td = tr[i].getElementsByTagName("td");
-      let rowText = "";
-      for (let j = 0; j < td.length; j++) {
-        if (td[j]) {
-          rowText += td[j].textContent.toLowerCase() + " ";
-        }
-      }
-      tr[i].style.display = rowText.includes(filter) ? "" : "none";
-    }
-  }
 </script>
 @endsection

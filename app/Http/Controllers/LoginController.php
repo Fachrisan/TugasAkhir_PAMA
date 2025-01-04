@@ -52,7 +52,7 @@ class LoginController extends Controller
     }
 
     $users = Login::all();
-    return view('content.user.user', compact('users'));
+    return view('content.data_user.index', compact('users'));
   }
 
   public function edit($id_user)
@@ -74,14 +74,12 @@ class LoginController extends Controller
     }
 
     $request->validate([
-      'nama' => ['required'],
       'username' => ['required', 'unique:login'],
       'password' => ['required'],
       'level' => ['required', 'in:admin,dosen,mahasiswa'],
     ]);
 
     $user = Login::create([
-      'nama' => $request->nama,
       'username' => $request->username,
       'password' => Hash::make($request->password),
       'level' => $request->level,
@@ -101,13 +99,11 @@ class LoginController extends Controller
     }
 
     $request->validate([
-      'nama' => ['required'],
       'username' => ['required', 'unique:login,username,' . $id_user . ',id_user'],
       'level' => ['required', 'in:admin,dosen,mahasiswa'],
     ]);
 
     $user = Login::findOrFail($id_user);
-    $user->nama = $request->nama;
     $user->username = $request->username;
     $user->level = $request->level;
 

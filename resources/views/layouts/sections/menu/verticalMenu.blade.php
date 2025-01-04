@@ -55,7 +55,7 @@
 <li class="menu-header small text-uppercase">
   <span class="menu-header-text">USER</span>
     <li class="menu-item ">
-      <a href="/datauser" class="menu-link">
+      <a href="/user" class="menu-link">
       <i class="menu-icon tf-icons bx bx-detail"></i>
       <div>Data User</div>
       </a>
