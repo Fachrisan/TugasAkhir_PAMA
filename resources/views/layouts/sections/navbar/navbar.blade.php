@@ -45,7 +45,7 @@ $navbarDetached = ($navbarDetached ?? '');
 
           <!-- Place this tag where you want the button to render. -->
           <li class="nav-item lh-1 me-3">
-            <a class="github-button" href="https://github.com/themeselection/sneat-html-laravel-admin-template-free" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-laravel-admin-template-free on GitHub">Star</a>
+            <a class="github-button" href="#" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-laravel-admin-template-free on GitHub">{{ auth()->user()->level }}</a>
           </li>
 
           <!-- User -->
@@ -64,10 +64,10 @@ $navbarDetached = ($navbarDetached ?? '');
                         <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
                       </div>
                     </div>
-                    <div class="flex-grow-1">
-                      <span class="fw-medium d-block">John Doe</span>
-                      <small class="text-muted">Admin</small>
-                    </div>
+                    {{-- <div class="flex-grow-1">
+                      <span class="fw-medium d-block">{{ auth()->user()->nama }}</span>
+                      <small class="text-muted">{{ auth()->user()->level }}</small>
+                    </div> --}}
                   </div>
                 </a>
               </li>
@@ -87,23 +87,17 @@ $navbarDetached = ($navbarDetached ?? '');
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
-                  <span class="d-flex align-items-center align-middle">
-                    <i class="flex-shrink-0 bx bx-credit-card me-2 pe-1"></i>
-                    <span class="flex-grow-1 align-middle">Billing</span>
-                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                  </span>
-                </a>
-              </li>
-              <li>
                 <div class="dropdown-divider"></div>
               </li>
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
-                  <i class='bx bx-power-off me-2'></i>
-                  <span class="align-middle">Log Out</span>
+                <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                <a class="dropdown-item" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class='bx bx-power-off me-2'></i>
+                    <span class="align-middle">Log Out</span>
                 </a>
-              </li>
+            </li>
             </ul>
           </li>
           <!--/ User -->

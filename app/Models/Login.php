@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
-class Login extends Model
+class Login extends Authenticatable
 {
-    use HasFactory;
+  use Notifiable;
+
+  protected $fillable = ['id_user', 'username', 'password', 'level'];
+
+  // Ganti autentikasi dari `email` ke `username`
+  public function getAuthIdentifierName()
+  {
+    return 'username';
+  }
 }

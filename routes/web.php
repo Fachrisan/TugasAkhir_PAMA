@@ -58,9 +58,6 @@ use App\Http\Controllers\NilaiController;
 
 use function Symfony\Component\String\b;
 
-// Main Page Route
-Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
-
 // pages
 Route::get('/pages/account-settings-account', [AccountSettingsAccount::class, 'index'])->name(
   'pages-account-settings-account'
@@ -111,29 +108,41 @@ Route::get('/icons/boxicons', [Boxicons::class, 'index'])->name('icons-boxicons'
 // tables
 Route::get('/tables/basic', [TablesBasic::class, 'index'])->name('tables-basic');
 
+// // Main Page Route
+// Route::get('/', [Analytics::class, 'index'])->name('dashboard-analytics');
 //login
-Route::get('/login', [LoginController::class, 'index'])->name('login.index');
+Route::get('/', [LoginController::class, 'index'])->name('login');
+Route::get('/lgn', [LoginController::class, 'index']);
+Route::post('/proses-login', [LoginController::class, 'login_proses'])->name('proses-login');
+Route::get('/register', [RegisterBasic::class, 'index'])->name('register');
+Route::post('/proses-reg', [RegisterBasic::class, 'reg'])->name('proses-reg');
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-//datauser
-Route::get('/datauser', [DataUserController::class, 'index'])->name('datauser.index');
+Route::middleware(['auth', 'checklevel:admin'])->group(function () {
+  //dashboard
+  Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
 
-//dosen
-Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
+  //datauser
+  Route::get('/datauser', [DataUserController::class, 'index'])->name('datauser.index');
 
-//Mahasiswa
-Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
+  //dosen
+  Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
 
-//matkul
-Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul.index');
+  //Mahasiswa
+  Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
 
-//jadwal
-Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
+  //matkul
+  Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul.index');
 
-//nilai
-Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
+  //jadwal
+  Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
 
-//ambilmatkul
-Route::get('/ambilmatkul', [AmbilMatkulController::class, 'index'])->name('ambilmatkul.index');
+  //nilai
+  Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
 
-//berita
-Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+  //ambilmatkul
+  Route::get('/ambilmatkul', [AmbilMatkulController::class, 'index'])->name('ambilmatkul.index');
+
+  //berita
+  Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
+});

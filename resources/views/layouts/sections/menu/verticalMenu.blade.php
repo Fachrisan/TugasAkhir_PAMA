@@ -47,7 +47,7 @@
   <ul class="menu-inner py-1 ps ps--active-y">
 {{-- menu --}}
 <li class="menu-item ">
-  <a href="http://127.0.0.1:8000" class="menu-link">
+  <a href="/dashboard" class="menu-link">
     <i class="menu-icon tf-icons bx bx-home-circle"></i>
     <div>Dashboards</div>
   </a>
