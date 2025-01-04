@@ -137,7 +137,7 @@ Route::middleware(['auth', 'checklevel:admin,mahasiswa'])->group(function () {
   Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
 
   //matkul
-  Route::get('/matkul', [MatkulController::class, 'index'])->name('matkul.index');
+  Route::resource('matkul', MatkulController::class);
 
   //jadwal
   Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
