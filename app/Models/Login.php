@@ -7,12 +7,15 @@ use Illuminate\Notifications\Notifiable;
 
 class Login extends Authenticatable
 {
-  use Notifiable;
+  protected $table = 'login';
+  protected $primaryKey = 'id_user';
 
-  protected $fillable = ['id_user', 'username', 'password', 'level'];
+  protected $fillable = ['nama', 'username', 'password', 'level'];
 
-  // Ganti autentikasi dari `email` ke `username`
-  public function getAuthIdentifierName()
+  protected $hidden = ['password'];
+
+  // Tambahkan method ini untuk menentukan field username
+  public function username()
   {
     return 'username';
   }
