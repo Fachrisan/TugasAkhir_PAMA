@@ -118,10 +118,11 @@ Route::get('/register', [RegisterBasic::class, 'index'])->name('register');
 Route::post('/proses-reg', [RegisterBasic::class, 'reg'])->name('proses-reg');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-Route::middleware(['auth', 'checklevel:admin,mahasiswa'])->group(function () {
+Route::middleware(['auth'])->group(function () {
   //dashboard
   Route::get('/dashboard', [Analytics::class, 'index'])->name('dashboard-analytics');
-
+});
+Route::middleware(['auth', 'checklevel:admin,mahasiswa,dosen'])->group(function () {
   //datauser
   Route::get('/datauser', [DataUserController::class, 'index'])->name('datauser.index');
   Route::get('/user', [LoginController::class, 'user'])->name('user.index');
@@ -134,8 +135,9 @@ Route::middleware(['auth', 'checklevel:admin,mahasiswa'])->group(function () {
   Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
 
   //Mahasiswa
-  Route::get('/mahasiswa', [MahasiswaController::class, 'index'])->name('mahasiswa.index');
-
+  // Route::get('/profil', [MahasiswaController::class, 'profil'])->name('profil.index');
+  Route::resource('mahasiswa', MahasiswaController::class);
+  Route::get('profile', [MahasiswaController::class, 'profile'])->name('mahasiswa.profile');
   //matkul
   Route::resource('matkul', MatkulController::class);
 
@@ -155,4 +157,6 @@ Route::middleware(['auth', 'checklevel:admin,mahasiswa'])->group(function () {
   Route::get('/berita/{berita}/edit', [BeritaController::class, 'edit'])->name('berita.edit');
   Route::put('/berita/{berita}', [BeritaController::class, 'update'])->name('berita.update');
   Route::delete('/berita/{berita}', [BeritaController::class, 'destroy'])->name('berita.destroy');
+
+  Route::resource('mahasiswa', MahasiswaController::class);
 });

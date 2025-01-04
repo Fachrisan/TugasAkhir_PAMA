@@ -26,15 +26,8 @@ class LoginController extends Controller
     if (Auth::attempt($credentials)) {
       $request->session()->regenerate();
 
-      // Redirect berdasarkan level
-      switch (Auth::user()->level) {
-        case 'admin':
-          return redirect('/dashboard');
-        case 'dosen':
-          return redirect('/dashboard');
-        case 'mahasiswa':
-          return redirect('/dashboard');
-      }
+      // Semua role langsung diarahkan ke /dashboard
+      return redirect('/dashboard');
     }
 
     return redirect()
