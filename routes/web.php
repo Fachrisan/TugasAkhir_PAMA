@@ -132,7 +132,10 @@ Route::middleware(['auth', 'checklevel:admin,mahasiswa,dosen'])->group(function 
   Route::delete('/user/{id_user}', [LoginController::class, 'destroy'])->name('user.destroy');
 
   //dosen
-  Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
+  // Route::get('/dosen', [DosenController::class, 'index'])->name('dosen.index');
+  Route::resource('dosen', DosenController::class);
+  Route::get('/dosen/{id}/edit', [DosenController::class, 'edit'])->name('dosen.edit');
+  Route::put('/dosen/{id}', [DosenController::class, 'update'])->name('dosen.update');
 
   //Mahasiswa
   // Route::get('/profil', [MahasiswaController::class, 'profil'])->name('profil.index');
