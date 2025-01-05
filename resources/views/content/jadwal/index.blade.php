@@ -89,10 +89,11 @@
 </div>
 
 <!-- Tombol untuk memunculkan modal tambah -->
+@if(Auth::user()->level === 'admin')
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahModal">
   Tambah Jadwal
 </button>
-
+@endif
 <!-- Input Pencarian -->
 <div class="mb-3 mt-3">
   <input type="text" id="searchInput" class="form-control" placeholder="Cari jadwal...">
@@ -113,7 +114,9 @@
               <th>Hari</th>
               <th>Jam</th>
               <th>Ruangan</th>
+              @if(Auth::user()->level === 'admin')
               <th>Aksi</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -126,6 +129,7 @@
               <td>{{ $jadwal->hari }}</td>
               <td>{{ $jadwal->jam }}</td>
               <td>{{ $jadwal->ruangan }}</td>
+              @if(Auth::user()->level === 'admin')
               <td>
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -148,6 +152,7 @@
                   </div>
                 </div>
               </td>
+              @endif
             </tr>
 
             <!-- Modal Edit -->

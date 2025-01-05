@@ -91,7 +91,8 @@
           </div>
           <div class="mt-2">
             <button type="submit" class="btn btn-primary me-2">Save changes</button>
-            <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+            <!-- Tombol Cancel kembali ke dashboard -->
+            <a href="{{ url('/dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
           </div>
         </form>
       </div>

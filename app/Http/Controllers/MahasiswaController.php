@@ -13,7 +13,8 @@ class MahasiswaController extends Controller
   public function index()
   {
     $mahasiswa = Mahasiswa::all();
-    return view('content.mahasiswa.index', compact('mahasiswa'));
+    $users = Login::all(); // Perhatikan nama variabel
+    return view('content.mahasiswa.index', compact('mahasiswa', 'users')); // Gunakan nama variabel yang benar
   }
 
   public function create()

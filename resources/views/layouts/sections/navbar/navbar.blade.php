@@ -64,40 +64,41 @@ $navbarDetached = ($navbarDetached ?? '');
                         <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
                       </div>
                     </div>
-                    {{-- <div class="flex-grow-1">
-                      <span class="fw-medium d-block">{{ auth()->user()->nama }}</span>
-                      <small class="text-muted">{{ auth()->user()->level }}</small>
-                    </div> --}}
+                    <div class="flex-grow-1">
+                      <span class="fw-medium d-block">{{ auth()->user()->username }}</span>
+                    </div>
                   </div>
                 </a>
               </li>
               <li>
                 <div class="dropdown-divider"></div>
               </li>
+              @if(Auth::user()->level === 'mahasiswa')
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
+                <a class="dropdown-item" href="{{ route('mahasiswa.show', Auth::user()->mahasiswa->id_mahasiswa) }}">
                   <i class="bx bx-user me-2"></i>
                   <span class="align-middle">My Profile</span>
                 </a>
               </li>
+              @endif
               <li>
-                <a class="dropdown-item" href="javascript:void(0);">
-                  <i class='bx bx-cog me-2'></i>
-                  <span class="align-middle">Settings</span>
+                @if(Auth::user()->level === 'admin' || Auth::user()->level === 'dosen')
+                <a class="dropdown-item" href="#">
+                  <i class="bx bx-user me-2"></i>
+                  <span class="align-middle">My Profile</span>
                 </a>
               </li>
-              <li>
-                <div class="dropdown-divider"></div>
-              </li>
+              @endif
+              <div class="dropdown-divider"></div>
               <li>
                 <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                    @csrf
+                  @csrf
                 </form>
                 <a class="dropdown-item" href="javascript:void(0);" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    <i class='bx bx-power-off me-2'></i>
-                    <span class="align-middle">Log Out</span>
+                  <i class="bx bx-power-off me-2"></i>
+                  <span class="align-middle">Log Out</span>
                 </a>
-            </li>
+              </li>
             </ul>
           </li>
           <!--/ User -->

@@ -113,9 +113,11 @@
 </div>
 
 <!-- Tombol untuk memunculkan modal tambah -->
+@if(Auth::user()->level === 'admin')
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahModal">
   Tambah Dosen
 </button>
+@endif
 
 <!-- Input Pencarian -->
 <div class="mb-3 mt-3">
@@ -134,7 +136,9 @@
               <th>Nama</th>
               <th>email</th>
               <th>Status</th>
+              @if(Auth::user()->level === 'admin' || Auth::user()->level === 'dosen')
               <th>Aksi</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -148,6 +152,7 @@
                   {{ $dosen->status }}
                 </span>
               </td>
+              @if(Auth::user()->level === 'admin')
               <td>
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -169,6 +174,7 @@
                     </form>
                   </div>
                 </div>
+                @endif
               </td>
             </tr>
 

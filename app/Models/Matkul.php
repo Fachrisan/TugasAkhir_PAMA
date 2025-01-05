@@ -19,4 +19,9 @@ class Matkul extends Model
   {
     return $this->hasMany(Jadwal::class, 'id_matkul', 'id_matkul');
   }
+  public function ambilmatkul()
+  {
+    // ubah nama method menjadi singular
+    return $this->hasMany(AmbilMatkul::class, 'id_matkul', 'id_matkul');
+  }
 }

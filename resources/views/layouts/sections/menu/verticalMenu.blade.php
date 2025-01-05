@@ -54,12 +54,14 @@
 </li>
 <li class="menu-header small text-uppercase">
   <span class="menu-header-text">USER</span>
+  @if(Auth::user()->level === 'admin')
     <li class="menu-item ">
       <a href="/user" class="menu-link">
       <i class="menu-icon tf-icons bx bx-detail"></i>
       <div>Data User</div>
       </a>
     </li>
+    @endif
     <li class="menu-item ">
       <a href="/dosen" class="menu-link">
       <i class="menu-icon tf-icons bx bx-user"></i>
@@ -88,12 +90,12 @@
       <div>Jadwal</div>
       </a>
     </li>
-    <li class="menu-item ">
+    {{-- <li class="menu-item ">
       <a href="/kelas" class="menu-link">
       <i class="menu-icon tf-icons bx bx-store"></i>
       <div>Kelas</div>
       </a>
-    </li>
+    </li> --}}
     <li class="menu-item ">
       <a href="/nilai" class="menu-link">
       <i class="menu-icon tf-icons bx bx-list-check"></i>
@@ -111,7 +113,7 @@
       </a>
     </li>
 </li>
-
+@if(Auth::user()->level === 'admin')
 <li class="menu-header small text-uppercase">
   <span class="menu-header-text">Lainnya</span>
     <li class="menu-item ">
@@ -121,245 +123,8 @@
       </a>
     </li>
 </li>
+@endif
 {{-- end-menu --}}
 
-        <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">Apps &amp; Pages</span>
-    </li>
-    <li class="menu-item ">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx bx-dock-top"></i>
-                <div>Account Settings</div>
-              </a>
-            <ul class="menu-sub">
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/pages/account-settings-account" class="menu-link">
-                    <div>Account</div>
-                  </a>
-              </li>
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/pages/account-settings-notifications" class="menu-link">
-                    <div>Notifications</div>
-                  </a>
-              </li>
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/pages/account-settings-connections" class="menu-link">
-                    <div>Connections</div>
-                  </a>
-              </li>
-      </ul>
-          </li>
-    <li class="menu-item ">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div>Authentications</div>
-              </a>
-            <ul class="menu-sub">
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/auth/login-basic" class="menu-link" target="_blank">
-                    <div>Login</div>
-                  </a>
-              </li>
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/auth/register-basic" class="menu-link" target="_blank">
-                    <div>Register</div>
-                  </a>
-              </li>
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/auth/forgot-password-basic" class="menu-link" target="_blank">
-                    <div>Forgot Password</div>
-                  </a>
-              </li>
-      </ul>
-          </li>
-    <li class="menu-item ">
-      <a href="http://127.0.0.1:8000/cards/basic" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-collection"></i>
-                <div>Cards</div>
-              </a>
-          </li>
-    <li class="menu-item ">
-      <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div>User interface</div>
-              </a>
-            <ul class="menu-sub">
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/accordion" class="menu-link">
-                    <div>Accordion</div>
-                  </a>
-              </li>
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/alerts" class="menu-link">
-                    <div>Alerts</div>
-                  </a>
-              </li>
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/badges" class="menu-link">
-                    <div>Badges</div>
-                  </a>
-              </li>
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/buttons" class="menu-link">
-                    <div>Buttons</div>
-                  </a>
 
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/carousel" class="menu-link">
-                    <div>Carousel</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/collapse" class="menu-link">
-                    <div>Collapse</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/dropdowns" class="menu-link">
-                    <div>Dropdowns</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/footer" class="menu-link">
-                    <div>Footer</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/list-groups" class="menu-link">
-                    <div>List Groups</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/modals" class="menu-link">
-                    <div>Modals</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/navbar" class="menu-link">
-                    <div>Navbar</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/offcanvas" class="menu-link">
-                    <div>Offcanvas</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/pagination-breadcrumbs" class="menu-link">
-                    <div>Pagination &amp; Breadcrumbs</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/progress" class="menu-link">
-                    <div>Progress</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/spinners" class="menu-link">
-                    <div>Spinners</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/tabs-pills" class="menu-link">
-                    <div>Tabs &amp; Pills</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/toasts" class="menu-link">
-                    <div>Toasts</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/tooltips-popovers" class="menu-link">
-                    <div>Tooltips &amp; Popovers</div>
-                  </a>
-
-
-              </li>
-
-
-
-      <li class="menu-item ">
-        <a href="http://127.0.0.1:8000/ui/typography" class="menu-link">
-                    <div>Typography</div>
-                  </a>
-              </li>
-      </ul>
-          </li>
-      <li class="menu-item ">
-      <a href="http://127.0.0.1:8000/tables/basic" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
-                <div>Tables</div>
-              </a>
-          </li>
 </aside>

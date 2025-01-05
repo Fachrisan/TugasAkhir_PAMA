@@ -57,10 +57,11 @@
 </div>
 
 <!-- Tombol untuk memunculkan modal tambah -->
+@if(Auth::user()->level === 'admin')
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahModal">
   Tambah Mata Kuliah
 </button>
-
+@endif
 <!-- Input Pencarian -->
 <div class="mb-3 mt-3">
   <input type="text" id="searchInput" class="form-control" placeholder="Cari mata kuliah...">
@@ -77,7 +78,9 @@
               <th>ID Mata Kuliah</th>
               <th>Nama Mata Kuliah</th>
               <th>SKS</th>
+              @if(Auth::user()->level === 'admin')
               <th>Aksi</th>
+              @endif
             </tr>
           </thead>
           <tbody>
@@ -86,6 +89,7 @@
               <td>{{ $matkul->id_matkul }}</td>
               <td>{{ $matkul->nama }}</td>
               <td>{{ $matkul->sks }}</td>
+              @if(Auth::user()->level === 'admin')
               <td>
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -108,6 +112,7 @@
                   </div>
                 </div>
               </td>
+              @endif
             </tr>
 
             <!-- Modal Edit -->

@@ -26,8 +26,17 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label>ID User</label>
-            <input type="text" name="id_user" class="form-control @error('id_user') is-invalid @enderror" value="{{ old('id_user') }}" required>
+            <label for="id_user">Username</label>
+            <select name="id_user" id="id_user" class="form-control @error('id_user') is-invalid @enderror" required>
+              <option value="" disabled selected>Pilih Username</option>
+              @foreach($users as $user)
+                @if($user->level === 'mahasiswa')
+                  <option value="{{ $user->id_user }}" {{ old('id_user') == $user->id_user ? 'selected' : '' }}>
+                    {{ $user->username }} - {{ $user->name }}
+                  </option>
+                @endif
+              @endforeach
+            </select>
             @error('id_user')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -134,10 +143,11 @@
 </div>
 
 <!-- Tombol untuk memunculkan modal tambah -->
+@if(Auth::user()->level === 'admin' || Auth::user()->level === 'dosen')
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#tambahModal">
   Tambah Mahasiswa
 </button>
-
+@endif
 <!-- Input Pencarian -->
 <div class="mb-3 mt-3">
   <input type="text" id="searchInput" class="form-control" placeholder="Cari mahasiswa...">
@@ -180,6 +190,7 @@
                     <a class="dropdown-item" href="{{ route('mahasiswa.show', $mahasiswa->id_mahasiswa) }}">
                       <i class="bx bx-show me-1"></i> Detail
                     </a>
+                    @if(Auth::user()->level === 'admin' || Auth::user()->level === 'dosen')
                     <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#editModal{{ $mahasiswa->id_mahasiswa }}">
                       <i class="bx bx-edit-alt me-1"></i> Edit
                     </a>
@@ -190,6 +201,7 @@
                         <i class="bx bx-trash me-1"></i> Delete
                       </button>
                     </form>
+                    @endif
                   </div>
                 </div>
               </td>

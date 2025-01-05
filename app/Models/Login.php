@@ -19,4 +19,8 @@ class Login extends Authenticatable
   {
     return 'username';
   }
+  public function mahasiswa()
+  {
+    return $this->hasOne(Mahasiswa::class, 'id_user', 'id_user');
+  }
 }

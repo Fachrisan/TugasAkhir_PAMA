@@ -152,7 +152,8 @@ Route::middleware(['auth', 'checklevel:admin,mahasiswa,dosen'])->group(function 
   Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
 
   //ambilmatkul
-  Route::get('/ambilmatkul', [AmbilMatkulController::class, 'index'])->name('ambilmatkul.index');
+  // Route::get('/ambilmatkul', [AmbilMatkulController::class, 'index'])->name('ambilmatkul.index');
+  Route::resource('ambilmatkul', AmbilMatkulController::class);
 
   //berita
   Route::get('/berita', [BeritaController::class, 'index'])->name('berita.index');
