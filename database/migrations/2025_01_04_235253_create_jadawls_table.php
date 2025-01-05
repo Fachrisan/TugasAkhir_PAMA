@@ -12,18 +12,27 @@ return new class extends Migration {
   {
     Schema::create('jadwals', function (Blueprint $table) {
       $table->id('id_jadwal');
-      $table
-        ->foreignId('id_matkul')
-        ->constrained('matkuls', 'id_matkul')
-        ->onDelete('cascade');
-      $table
-        ->foreignId('id_dosen')
-        ->constrained('dosen', 'id_dosen')
-        ->onDelete('cascade');
+      // Mengubah tipe data menjadi string agar sesuai dengan tabel matkuls
+      $table->string('id_matkul');
+      $table->unsignedBigInteger('id_dosen');
       $table->string('hari');
       $table->string('jam');
       $table->string('ruangan');
       $table->timestamps();
+
+      // Foreign key untuk matkul (menggunakan string)
+      $table
+        ->foreign('id_matkul')
+        ->references('id_matkul')
+        ->on('matkuls')
+        ->onDelete('cascade');
+
+      // Foreign key untuk dosen
+      $table
+        ->foreign('id_dosen')
+        ->references('id_dosen')
+        ->on('dosen')
+        ->onDelete('cascade');
     });
   }
 

@@ -15,4 +15,8 @@ class Matkul extends Model
   protected $keyType = 'string'; // Tipe varchar untuk primary key
 
   protected $fillable = ['id_matkul', 'nama', 'sks']; // Kolom yang dapat diisi
+  public function jadwals()
+  {
+    return $this->hasMany(Jadwal::class, 'id_matkul', 'id_matkul');
+  }
 }

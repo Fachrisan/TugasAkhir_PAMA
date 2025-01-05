@@ -145,7 +145,8 @@ Route::middleware(['auth', 'checklevel:admin,mahasiswa,dosen'])->group(function 
   Route::resource('matkul', MatkulController::class);
 
   //jadwal
-  Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
+  // Route::get('/jadwal', [JadwalController::class, 'index'])->name('jadwal.index');
+  Route::resource('jadwal', JadwalController::class);
 
   //nilai
   Route::get('/nilai', [NilaiController::class, 'index'])->name('nilai.index');
