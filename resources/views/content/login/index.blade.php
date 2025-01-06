@@ -18,11 +18,11 @@
           <div class="app-brand justify-content-center">
             <a href="{{url('/')}}" class="app-brand-link gap-2">
               <span class="app-brand-logo demo">@include('_partials.macros',["width"=>25,"withbg"=>'var(--bs-primary)'])</span>
-              <h4 class="mb-2">Apotik</h4>
+              <h4 class="mb-2">PAMA</h4>
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Welcome to Apotik 👋</h4>
+          <h4 class="mb-2">Welcome to PAMA 👋</h4>
           <p class="mb-4">Silakan masuk ke akun Anda dan mulai petualangan</p>
           @if (session('success'))
     <div class="alert alert-success">
