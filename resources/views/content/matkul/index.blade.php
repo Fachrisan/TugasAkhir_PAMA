@@ -89,7 +89,7 @@
               <td>{{ $matkul->id_matkul }}</td>
               <td>{{ $matkul->nama }}</td>
               <td>{{ $matkul->sks }}</td>
-              @if(Auth::user()->level === 'admin')
+              @if(Auth::user()->level === 'admin' || Auth::user()->level === 'dosen')
               <td>
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

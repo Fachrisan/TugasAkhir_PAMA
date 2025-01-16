@@ -19,25 +19,28 @@ class RegisterBasic extends Controller
   {
     return view('content.login.register');
   }
-
+  public function indexm(): View
+  {
+    return view('content.login.registerm');
+  }
   public function reg(Request $request): RedirectResponse
   {
     $request->validate([
       'username' => ['required'],
       'password' => ['required'],
-      'level' => ['required', 'in:admin,dosen,mahasiswa'], // Tambahkan validasi level
+      'level' => ['required', 'in:admin,dosen,mahasiswa'],
     ]);
 
     $user = Login::create([
       'username' => $request->username,
       'password' => Hash::make($request->password),
-      'level' => $request->level ?? 'mahasiswa', // Default level kasir
+      'level' => $request->level ?? 'mahasiswa',
     ]);
 
     event(new Registered($user));
 
     Auth::login($user);
 
-    return redirect('/'); // Return ke route /tampil untuk semua level user
+    return redirect('/');
   }
 }

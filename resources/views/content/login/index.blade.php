@@ -16,7 +16,7 @@
         <div class="card-body">
           <!-- Logo -->
           <div class="app-brand justify-content-center">
-            <a href="{{url('/')}}" class="app-brand-link gap-2">
+            <a href="{{url('register')}}" class="app-brand-link gap-2">
               <span class="app-brand-logo demo">@include('_partials.macros',["width"=>25,"withbg"=>'var(--bs-primary)'])</span>
               <h4 class="mb-2">PAMA</h4>
             </a>
@@ -72,12 +72,12 @@
             </div>
           </form>
 
-          {{-- <p class="text-center">
+          <p class="text-center">
             <span>New on our platform?</span>
-            <a href="{{url('auth/register-basic')}}">
+            <a href="{{url('registerm')}}">
               <span>Create an account</span>
             </a>
-          </p> --}}
+          </p>
         </div>
       </div>
     </div>

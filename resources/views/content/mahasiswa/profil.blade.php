@@ -19,23 +19,20 @@
     </ul>
     <div class="card mb-4">
       <h5 class="card-header">Profile Details</h5>
-      <!-- Account -->
       <div class="card-body">
         <div class="d-flex align-items-start align-items-sm-center gap-4">
-          <!-- Menampilkan foto profil -->
-          <img src="{{ $mahasiswa->foto ? Storage::url($mahasiswa->foto) : asset('assets/img/avatars/1.png') }}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
+          <img src="{{ asset('storage/' . $mahasiswa->foto) }}" alt="user-avatar" class="d-block rounded" height="100" width="100">
           <div class="button-wrapper">
             <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
               <span class="d-none d-sm-block">Upload new photo</span>
               <i class="bx bx-upload d-block d-sm-none"></i>
-              <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
+              <input type="file" id="upload" class="account-file-input" name="foto" hidden accept="image/png, image/jpeg" />
             </label>
             <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
               <i class="bx bx-reset d-block d-sm-none"></i>
               <span class="d-none d-sm-block">Reset</span>
             </button>
-
-            <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
+            <p class="text-muted mb-0">Allowed JPG, PNG. Max size of 800K</p>
           </div>
         </div>
       </div>
@@ -47,56 +44,54 @@
           <div class="row">
             <div class="mb-3 col-md-6">
               <label for="nim" class="form-label">NIM</label>
-              <input class="form-control" type="text" id="nim" name="nim" value="{{ $mahasiswa->nim }}" autofocus />
+              <input class="form-control" type="text" id="nim" name="nim" value="{{ old('nim', $mahasiswa->nim) }}" autofocus />
             </div>
             <div class="mb-3 col-md-6">
               <label for="nama" class="form-label">Nama</label>
-              <input class="form-control" type="text" name="nama" id="nama" value="{{ $mahasiswa->nama }}" />
+              <input class="form-control" type="text" name="nama" id="nama" value="{{ old('nama', $mahasiswa->nama) }}" />
             </div>
             <div class="mb-3 col-md-6">
               <label for="email" class="form-label">E-mail</label>
-              <input class="form-control" type="text" id="email" name="email" value="{{ $mahasiswa->email }}" placeholder="Email" />
+              <input class="form-control" type="email" id="email" name="email" value="{{ old('email', $mahasiswa->email) }}" placeholder="Email" />
             </div>
             <div class="mb-3 col-md-6">
               <label for="alamat" class="form-label">Alamat</label>
-              <input type="text" class="form-control" id="alamat" name="alamat" value="{{ $mahasiswa->alamat }}" />
+              <input type="text" class="form-control" id="alamat" name="alamat" value="{{ old('alamat', $mahasiswa->alamat) }}" />
             </div>
             <div class="mb-3 col-md-6">
               <label for="telpon" class="form-label">Phone Number</label>
-              <input type="text" class="form-control" id="telpon" name="telpon" value="{{ $mahasiswa->telpon }}" />
+              <input type="text" class="form-control" id="telpon" name="telpon" value="{{ old('telpon', $mahasiswa->telpon) }}" />
             </div>
             <div class="mb-3 col-md-6">
               <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-              <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ $mahasiswa->tanggal_lahir }}" />
+              <input type="date" class="form-control" id="tanggal_lahir" name="tanggal_lahir" value="{{ old('tanggal_lahir', $mahasiswa->tanggal_lahir) }}" />
             </div>
             <div class="mb-3 col-md-6">
               <label for="semester" class="form-label">Semester</label>
-              <input type="number" class="form-control" id="semester" name="semester" value="{{ $mahasiswa->semester }}" />
+              <input type="number" class="form-control" id="semester" name="semester" value="{{ old('semester', $mahasiswa->semester) }}" />
             </div>
             <div class="mb-3 col-md-6">
               <label for="tahun_ajaran" class="form-label">Tahun Ajaran</label>
-              <input type="text" class="form-control" id="tahun_ajaran" name="tahun_ajaran" value="{{ $mahasiswa->tahun_ajaran }}" />
+              <input type="text" class="form-control" id="tahun_ajaran" name="tahun_ajaran" value="{{ old('tahun_ajaran', $mahasiswa->tahun_ajaran) }}" />
             </div>
             <div class="mb-3 col-md-6">
               <label for="jurusan" class="form-label">Jurusan</label>
-              <input type="text" class="form-control" id="jurusan" name="jurusan" value="{{ $mahasiswa->jurusan }}" />
+              <input type="text" class="form-control" id="jurusan" name="jurusan" value="{{ old('jurusan', $mahasiswa->jurusan) }}" />
             </div>
             <div class="mb-3 col-md-6">
               <label for="status" class="form-label">Status</label>
               <select id="status" name="status" class="form-control">
-                <option value="aktif" {{ $mahasiswa->status == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                <option value="tidakaktif" {{ $mahasiswa->status == 'tidakaktif' ? 'selected' : '' }}>Tidak Aktif</option>
+                <option value="aktif" {{ old('status', $mahasiswa->status) == 'aktif' ? 'selected' : '' }}>Aktif</option>
+                <option value="tidakaktif" {{ old('status', $mahasiswa->status) == 'tidakaktif' ? 'selected' : '' }}>Tidak Aktif</option>
               </select>
             </div>
           </div>
           <div class="mt-2">
             <button type="submit" class="btn btn-primary me-2">Save changes</button>
-            <!-- Tombol Cancel kembali ke dashboard -->
             <a href="{{ url('/dashboard') }}" class="btn btn-outline-secondary">Cancel</a>
           </div>
         </form>
       </div>
-      <!-- /Account -->
     </div>
   </div>
 </div>

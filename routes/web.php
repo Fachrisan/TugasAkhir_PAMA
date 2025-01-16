@@ -115,6 +115,7 @@ Route::get('/', [LoginController::class, 'index'])->name('login');
 Route::get('/lgn', [LoginController::class, 'index']);
 Route::post('/proses-login', [LoginController::class, 'login_proses'])->name('proses-login');
 Route::get('/register', [RegisterBasic::class, 'index'])->name('register');
+Route::get('/registerm', [RegisterBasic::class, 'indexm'])->name('registerm');
 Route::post('/proses-reg', [RegisterBasic::class, 'reg'])->name('proses-reg');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

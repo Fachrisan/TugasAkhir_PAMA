@@ -26,7 +26,7 @@
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">DOSEN</span></br>
-        <h3 class="card-title mb-2">$12,628</h3>
+        <h3 class="card-title mb-2">{{ $dosen->count() }} Orang</h3>
       </div>
     </div>
   </div>
@@ -39,7 +39,7 @@
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">MAHASISWA</span></br>
-        <h3 class="card-title mb-2">$12,628</h3>
+        <h3 class="card-title mb-2">{{ $mahasiswa->count() }} Orang</h3>
       </div>
     </div>
   </div>
@@ -52,7 +52,7 @@
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">MATKUL</span></br>
-        <h3 class="card-title text-nowrap mb-1">$4,679</h3>
+        <h3 class="card-title text-nowrap mb-1">{{ $matkuls->count() }}</h3>
       </div>
     </div>
   </div>
@@ -65,7 +65,7 @@
           </div>
         </div>
         <span class="fw-semibold d-block mb-1">JADWAL</span></br>
-        <h3 class="card-title mb-2">$14,857</h3>
+        <h3 class="card-title mb-2">#</h3>
       </div>
     </div>
   </div>

@@ -37,7 +37,7 @@
   </g>
 </svg>
       </span>
-      <span class="app-brand-text demo menu-text fw-bold ms-2">Sneat</span>
+      <span class="app-brand-text demo menu-text fw-bold ms-2">PAMA</span>
     </a>
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-xl-none">
       <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -96,13 +96,13 @@
       <div>Kelas</div>
       </a>
     </li> --}}
-    <li class="menu-item ">
+    {{-- <li class="menu-item ">
       <a href="/nilai" class="menu-link">
       <i class="menu-icon tf-icons bx bx-list-check"></i>
       <div>Nilai</div>
       </a>
     </li>
-</li>
+</li> --}}
 
 <li class="menu-header small text-uppercase">
   <span class="menu-header-text">Pilih Mata Kuliah</span>
