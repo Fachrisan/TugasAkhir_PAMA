@@ -26,9 +26,9 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label for="id_user">Username</label>
+            <label for="id_user">NIM</label>
             <select name="id_user" id="id_user" class="form-control @error('id_user') is-invalid @enderror" required>
-              <option value="" disabled selected>Pilih Username</option>
+              <option value="" disabled selected>Pilih NIM Untuk Login</option>
               @foreach($users as $user)
                 @if($user->level === 'mahasiswa')
                   <option value="{{ $user->id_user }}" {{ old('id_user') == $user->id_user ? 'selected' : '' }}>

@@ -26,12 +26,22 @@
         </div>
         <div class="modal-body">
           <div class="mb-3">
-            <label>ID User</label>
-            <input type="text" name="id_user" class="form-control @error('id_user') is-invalid @enderror" value="{{ old('id_user') }}" required>
+            <label for="id_user">NIDN Dosen</label>
+            <select name="id_user" id="id_user" class="form-control @error('id_user') is-invalid @enderror" required>
+              <option value="" disabled selected>Pilih NIDN Untuk Login Dosen</option>
+              @foreach($users as $user)
+                @if($user->level === 'dosen')
+                  <option value="{{ $user->id_user }}" {{ old('id_user') == $user->id_user ? 'selected' : '' }}>
+                    {{ $user->username }} - {{ $user->name }}
+                  </option>
+                @endif
+              @endforeach
+            </select>
             @error('id_user')
               <div class="invalid-feedback">{{ $message }}</div>
             @enderror
           </div>
+
           <div class="mb-3">
             <label>NIDN</label>
             <input type="text" name="nidn" class="form-control @error('nidn') is-invalid @enderror" value="{{ old('nidn') }}" required>

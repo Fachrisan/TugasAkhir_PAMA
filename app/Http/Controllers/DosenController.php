@@ -12,7 +12,8 @@ class DosenController extends Controller
   public function index()
   {
     $dosen = Dosen::all();
-    return view('content.dosen.index', compact('dosen'));
+    $users = Login::all(); // Perhatikan nama variabel
+    return view('content.dosen.index', compact('dosen', 'users'));
   }
   public function create()
   {
